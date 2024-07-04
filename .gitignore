@@ -1,3 +1,20 @@
+# Test directories
+test/
+public/
+
+# Specific files
+index.html
+
+# Data files
+data/
+data/original_data.csv
+
+
+config.json
+
+
+###########################
+
 # Created by https://www.toptal.com/developers/gitignore/api/macos,python,visualstudiocode,jupyternotebooks
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,python,visualstudiocode,jupyternotebooks
 
