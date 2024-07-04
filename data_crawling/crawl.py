@@ -205,7 +205,7 @@ def get_urls(data_path, getcsv=False): #, save_path):
 
     df['url'] = url_ls
     if getcsv:
-       save_path = data_path.replace('.csv', '_withURL.csv')
+       save_path = data_path.replace('.csv', '_url.csv')
        df.to_csv(save_path, index=False, encoding='utf-8-sig')
     return df
     

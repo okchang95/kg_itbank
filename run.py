@@ -59,56 +59,55 @@ if __name__ =="__main__":
     if not os.path.exists('data'):
         os.makedirs('data')
 
-    # 1) f'{filename}.csv'가 없으면 만들어
+    # 1) 데이터 정리: f'{filename}.csv'가 없으면 만들어
     if not file_exists(csv_file):
         if file_exists('original_data.csv'):
-            print('1) data_load.py 실행')
+            print('1) cleaning_script.py 실행')
             print('original_data.csv을 불러옵니다..')
             starttime = time.time()
-            subprocess.run(['python', 'data_load.py', filename])
+            subprocess.run(['python', 'data_cleaning/cleaning_script.py', filename])
             endtime = time.time()
-            print(f'1) data_load.py 완료!, {endtime - starttime} seconds {"="*20}\n')
+            print(f'1) cleaning_script.py 완료!, {endtime - starttime} seconds {"="*20}\n')
         else:
             print("데이터를 로드할 수 없습니다 ㅠ ...(1)")
 
-    # 2) f'{filename}_crawled.csv'가 없으면 만들어
+    # 2) 데이터 크롤링: f'{filename}_crawled.csv'가 없으면 만들어
     if file_exists(csv_file) and not file_exists(crawled_file):
-        print('2) crawl.py 실행')
+        print('2) crawling_script.py 실행')
         print(f'{csv_file}.csv을 불러옵니다..')
         starttime = time.time()
-        subprocess.run(['python', 'crawl.py', filename])
+        subprocess.run(['python', 'data_crawling/crawling_script.py', filename])
         endtime = time.time()
-        print(f'2) crawl.py 완료!, {endtime - starttime} seconds {"="*20}\n')
+        print(f'2) crawling_script.py 완료!, {endtime - starttime} seconds {"="*20}\n')
     else:
         print("데이터를 로드할 수 없습니다 ㅠ ...(2)")
 
-    # 3) f'{filename}_sorted.csv'가 없으면 만들어
+    # 3) 거리순 정렬: f'{filename}_sorted.csv'가 없으면 만들어
     if file_exists(crawled_file) and not file_exists(sorted_file):
-        print('3) sort_distance.py 실행')
+        print('3) sorting_script.py 실행')
         print(f'{crawled_file}을 불러옵니다..')
         starttime = time.time()
-        subprocess.run(['python', 'sort_distance.py', filename, search_lat, search_lng, search_radius])
+        subprocess.run(['python', 'data_cleaning/sorting_script.py', filename, search_lat, search_lng, search_radius])
         endtime = time.time()
-        print(f'3) sort_distance.py 완료, {endtime - starttime} seconds {"="*20}\n')
-        print(f'total: {endtime - starttime} seconds')
+        print(f'3) sorting_script.py 완료, {endtime - starttime} seconds {"="*20}\n')
     else:
         print("데이터를 로드할 수 없습니다 ㅠ ...(3)")
     
-    # 4) f'{filename}_sorted.csv'가 있으면 실행
+    # 4) 운영시간 필터링: f'{filename}_sorted.csv'가 있으면 실행
     if file_exists(sorted_file):
-        print('4) get_time.py 실행')
+        print('4) filtering_script.py 실행')
         print(f'{sorted_file}을 불러옵니다..')
 
         year, mon, day = search_date
         time_ = ''.join(search_time.split(':'))
         result_filename = f'{result_filename}_{year + mon + day}_{time_}.csv'
 
-
         starttime = time.time()
-        subprocess.run(['python', 'get_time.py', filename, year, mon, day, search_time, result_filename])
+        subprocess.run(['python', 'data_filtering/filtering_script.py', filename, year, mon, day, search_time, result_filename])
         endtime = time.time()
-        print(f'4) get_time.py 완료!, {endtime - starttime} seconds {"="*20}\n')
+        print(f'4) filtering_script.py 완료!, {endtime - starttime} seconds {"="*20}\n')
 
+        # 확인
         result_path = os.path.join('result/', result_filename)
         df = pd.read_csv(result_path)
         print(df)

@@ -6,10 +6,7 @@ from pandas import json_normalize
 from ast import literal_eval
 import numpy as np
 import re
-import os
-import sys
-
-import time
+import os, sys
 
 week = ['월','화','수','목','금','토','일']
 week_obj = {'월': 0, '화': 1, '수': 2, '목': 3, '금': 4, '토': 5, '일': 6}

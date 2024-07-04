@@ -5,7 +5,7 @@
 
 import pandas as pd
 import os
-from py import distance
+import sort_dist
 import sys
 
 ## INPUTS (sample: kg아이티뱅크) =========================================
@@ -20,10 +20,12 @@ longitude = float(sys.argv[3])
 radius = float(sys.argv[4])
 ## =====================================================================
 
-data_dir = 'data'
+# data path
+abs_root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+data_dir = os.path.join(abs_root_path, 'data/')
 
 crawled_df_path = os.path.join(data_dir, f'{filename}_crawled.csv')
-sorted_df = distance.distance(crawled_df_path, latitude, longitude, radius)
+sorted_df = sort_dist.distance(crawled_df_path, latitude, longitude, radius)
 # sorted_df.info()
 
 sorted_df.to_csv(os.path.join(data_dir, f'{filename}_sorted.csv'), index=False, encoding='utf-8-sig')

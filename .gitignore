@@ -7,7 +7,7 @@ test.py
 test/
 # public/
 data/
-data_tmp/
+py/
 
 config.json
 

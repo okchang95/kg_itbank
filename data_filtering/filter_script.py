@@ -1,6 +1,7 @@
 # 4. 운영시간 정리, result.csv
 
-from py import filter
+import filter
+
 import pandas as pd
 import os
 from ast import literal_eval
@@ -22,9 +23,10 @@ result_filename = sys.argv[6]
 
 search_date = [year, mon, day]
 
-
 ## INPUTS ==========================================
-data_dir = 'data/'
+# data path
+abs_root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+data_dir = os.path.join(abs_root_path, 'data/')
 
 # csv 불러와서 편집
 crawled_df = pd.read_csv(os.path.join(data_dir, f'{filename}_sorted.csv'),
