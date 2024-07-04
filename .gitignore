@@ -3,8 +3,13 @@
 
 # Test directories
 test/
-data/
+
 py/
+
+# data
+data/data_tmp/
+
+
 
 # config
 config.json
