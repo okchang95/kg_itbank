@@ -9,17 +9,19 @@ from py import distance
 import sys
 
 ## INPUTS (sample: kg아이티뱅크) =========================================
+filename = 'cafe_jongro'
+
 latitude = 37.571006515132865
 longitude = 126.99251768504305
 radius = 0.5 # km
 
-# latitude = float(sys.argv[1])
-# longitude = float(sys.argv[2])
-# radius = float(sys.argv[3])
+# filename = sys.argv[1]
+# latitude = float(sys.argv[2])
+# longitude = float(sys.argv[3])
+# radius = float(sys.argv[4])
 ## =====================================================================
 
-data_dir = '/Users/okchang/mainbiz/project/p1_final/data'
-filename = 'cafe_jongro'
+data_dir = 'data'
 
 crawled_df_path = os.path.join(data_dir, f'{filename}_crawled.csv')
 sorted_df = distance.distance(crawled_df_path, latitude, longitude, radius)

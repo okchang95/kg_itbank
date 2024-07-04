@@ -1,12 +1,13 @@
 # Specific files
-index.html
+# index.html
 data/original_data.csv
 test.py
 
 # Test directories
 test/
-public/
+# public/
 data/
+data_tmp/
 
 config.json
 

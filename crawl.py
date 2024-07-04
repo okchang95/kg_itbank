@@ -10,12 +10,16 @@ from py import crawling
 import pandas as pd
 import os
 
+
+## INPUTS ##############################################################
 # data: cafe_jongro.csv 가져와서 아래 크롤링 실행 
-# data_path = 'data/cafe_jongro.csv' # 상대경로
+filename = 'cafe_jongro'
+
+# filename = sys.argv[1]
+########################################################################
 
 # 데이터 저장 경로
 data_dir = 'data'
-filename = 'cafe_jongro'
 
 data_path = os.path.join(data_dir, f'{filename}.csv') # 정리만 된 data
 
