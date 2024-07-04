@@ -2,15 +2,17 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from bs4 import BeautifulSoup
 from selenium import webdriver
+import pandas as pd
+
 import time
 import gc
-import pandas as pd
-import os
 
 # 1. crawl_url(cafe): 키워드로 검색해서 해당 매장 정보페이지 url 반환
 # 2. crawl_time(url): 받은 url에서 운영시간 정보 받아옴. 리스트로 반환
 # 3. crawl_star(url): 받은 url에서 별점정보 문자열로 반환
 # 4. case_test(case, ifprint=False): 출력 테스트
+# 5. get_urls(data_path, getcsv=False): csv파일 정보로 url정보 가져옴
+# 6. get_time_n_dropna(df, save_path): 가져온 url정보로 운영시간 정보 가져와서 csv저장
 
 def crawl_url(cafe):
     '''
@@ -180,8 +182,8 @@ def case_test(case, ifprint=False):
 ################################################################
 # main function
 
-# 1. get_urls(data_path, getcsv=False): csv파일 정보로 url정보 가져옴
-# 2. get_time_n_dropna(df, save_path): 가져온 url정보로 운영시간 정보 가져와서 csv저장
+# 5. get_urls(data_path, getcsv=False): csv파일 정보로 url정보 가져옴
+# 6. get_time_n_dropna(df, save_path): 가져온 url정보로 운영시간 정보 가져와서 csv저장
 
 # get urls: csv의 행정동명 + 상호명으로 검색해서 컬럼 추가후 df 반환
 def get_urls(data_path, getcsv=False): #, save_path):
@@ -209,20 +211,15 @@ def get_urls(data_path, getcsv=False): #, save_path):
        df.to_csv(save_path, index=False, encoding='utf-8-sig')
     return df
     
-
 # get_time_n_dropna: get_urls로 반환시킨 df의 url 정보로 운영시간 크롤링
 def get_time_n_dropna(df, save_path):
     '''
     args
         df: DataFrame,
-            get_urls로 구한 df
-            (또는 url컬럼이 포함된 csv 파일:data)
-                #df = pd.read_csv(data)  
-
+            get_urls로 구한 df (또는 url컬럼이 포함된 csv 파일:data)
             -> save csv file
         save_path: str, csv file save path (with extension)
     '''
-    
     # url 없으면 에러 -> 결측치 제거
     df.dropna(subset=['url'], inplace=True)
     df.reset_index(drop=True, inplace=True)
@@ -247,14 +244,3 @@ def get_time_n_dropna(df, save_path):
 
     # save csv file
     df.to_csv(save_path, index=False, encoding='utf-8-sig')
-
-
-
-# # drop null: 크롤링해왔을 때 운영시간/url null값이면 drop
-# def drop_null(df):
-#     # url 컬럼 빈값 제거
-#     drop_url = df.dropna(subset=['url'], inplace=False).reset_index(drop=True, inplace=False)
-#     # 운영시간 빈 리스트 제거
-#     drop_time = drop_url[drop_url['운영시간'] != '[]']
-
-#     return drop_time

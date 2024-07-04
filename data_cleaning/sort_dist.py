@@ -13,8 +13,6 @@ def distance(data, latitude, longitude, radius):
         : 기준점으로부터의 거리 정보가 포함된 dataframe
     '''
     df = pd.read_csv(data)
-    # check
-    df.info()
 
     cafe_ls = []
     dist_ls = []

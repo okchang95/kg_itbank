@@ -1,20 +1,20 @@
 # 2. 크롤링
-# -------------------------------------------------------------------------
-# data_load.py로부터 만들어진 csv사용
+# ------------------------------------------------------------------------
+# cleaning_script.py로부터 만들어진 csv사용
 # 크롤링해서 데이터에 url, time컬럼 추가 =====> 시간 오래걸림(에러나면 한줄씩 try해서 실패하면 다시하는걸로)
 # 시간이 오래걸리니 중간 에러를 대비해서 나눠서 처리, 저장
-# ~~~URL.csv, 
-# ~~~_crawled.csv
+# 1) filename_url.csv, 
+# 2) filename_crawled.csv
+
+import pandas as pd
+import os, sys
 
 import crawl
-import pandas as pd
-import os
-import sys
 
-## INPUTS ##############################################################
-# filename = 'cafe_jongro'
-filename = sys.argv[1]
-########################################################################
+## INPUTS ================================================================
+filename = sys.argv[1] # 'cafe_jongro'
+
+## =======================================================================
 
 # 데이터 저장 경로
 abs_root_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

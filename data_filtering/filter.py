@@ -19,7 +19,23 @@ with open('config.json') as config_file:
 
 api_key = config['data_key']
 
-# 공휴일 리스트 불러오는 함수
+## 1. 공휴일 가져오는 데이터포털 api
+    # 1) get_holiday_ls(search_year): api로 공휴일 리스트 가져옴
+    # 2) is_holiday(holiday_list, search_date): 공휴일 확인
+## 2. 영업정보 확인
+    # 1) get_operating_time_dict(op_info_list): 영업정보 정리 후 딕셔너리로 리턴
+    # 2) get_sche_ls(op_ls): 추가 정리 
+    # 3) check_cafe_sche(operating_hours, search_time): 영업시간 범위 확인
+## 3. 적용
+    # 1) cafe_go(op_info_list, search_date, search_time): 카페이용 가능한지 T/F
+    # 2) checked_cafe_df(dataframe, save_name, search_date, search_time): 이용가능한 카페들 출력
+
+
+
+## 1. 공휴일 가져오는 데이터포털 api -----------------------------------------------------------------------
+
+# 1-1) 공휴일 리스트 불러오는 함수
+
 # search_year : '2024'
 # return : [20240101 20240209 20240210 20240211 20240212 20240301 20240410 20240505 ... 20241225] 
 def get_holiday_ls(search_year):
@@ -34,7 +50,8 @@ def get_holiday_ls(search_year):
     else:
         print("공휴일 리스트를 불러오지 못했습니다.")
 
-# 공휴일인지 확인하는 함수
+# 1-2) 공휴일인지 확인하는 함수
+
 # holiday_list : [20240101 20240209 20240210 20240211 20240212 20240301 20240410 20240505 ... 20241225] 
 # search_date(검색 날짜) : ['2024','07','04']
 # return : True 또는 False
@@ -44,9 +61,11 @@ def is_holiday(holiday_list, search_date):
     else: 
         return False    
 
-########################################################################
 
-# 영업정보 dictionary 리턴하는 함수 
+## 2. 영업정보 확인 -------------------------------------------------------------------------------------
+
+# 2-1) 영업정보 dictionary 리턴하는 함수 
+
 # op_info_list : ['월,화', '07:00 ~ 22:00', '목~금', '07:00 ~ 22:00', '일', '09:00 ~ 23:00', '휴무일', '', '공휴일', '09:00 ~ 22:00']
 # return : {'영업일': ['매일', '07:00 ~ 22:00', '일', '09:00 ~ 23:00'], '휴무일': [''], '공휴일': ['09:00 ~ 22:00']}
 def get_operating_time_dict(op_info_list):
@@ -80,7 +99,8 @@ def get_operating_time_dict(op_info_list):
         return obj
 
 
-# 영업스케줄 list 리턴하는 함수
+# 2-2) 영업스케줄 list 리턴하는 함수
+
 # op_ls: ['월~목', '07:00 ~ 22:00', '일', '09:00 ~ 23:00']
 # return: ['07:00 ~ 22:00', '07:00 ~ 22:00', '07:00 ~ 22:00', '07:00 ~ 22:00', False, False, '09:00 ~ 23:00']
 def get_sche_ls(op_ls):
@@ -110,7 +130,8 @@ def get_sche_ls(op_ls):
     return result 
 
 
-# 영업시간 범위 확인하는 함수
+# 2-3) 영업시간 범위 확인하는 함수
+
 # operating_hours(운영 시간) : '09:00 ~ 22:30'
 # search_time(검색 시간) : '12:30'
 # return : True 또는 False
@@ -141,13 +162,14 @@ def check_cafe_sche(operating_hours, search_time):
             else:
                 return False
 
-###############################################################
 
-# 카페이용 가능한지 확인하는 함수
+## 3. 적용 --------------------------------------------------------------------------------------------
+
+# 3-1) 카페이용 가능한지 확인하는 함수
+
 # op_info_list(확인 대상) : csv의 운영시간 값
-# search_date
-# search_time
-# retur : True 또는 False
+# search_date, search_time
+# return : True 또는 False
 def cafe_go(op_info_list, search_date, search_time):
     if is_holiday(get_holiday_ls(search_date[0]), search_date):                                          ##### 수정 ##### holiday_list -> get_holiday_ls(search_date[0])
         if '공휴일' in op_info_list:
@@ -160,9 +182,10 @@ def cafe_go(op_info_list, search_date, search_time):
         else: return False
 
 
-# 데이터에서 이용가능한 카페리스트 반환하는 함수
-# dataframe : 카페csv파일 불러온 것 -> cafe_jongro_crawled.csv
-def checked_cafe_df(dataframe, save_name, search_date, search_time):        ##### 추가 ##### + result_path
+# 3-2) 데이터에서 이용가능한 카페리스트 반환하는 함수
+
+# dataframe : 카페csv파일 불러온 것 -> filename_crawled.csv
+def checked_cafe_df(dataframe, save_name, search_date, search_time):       
     '''
     args
         dataframe: 거리정렬까지 완료된 dataframe
@@ -176,8 +199,8 @@ def checked_cafe_df(dataframe, save_name, search_date, search_time):        ####
 
     ## search_time이 전날의 closetime 전일 수 있으므로 확인하기 위한 코드 
     # 예시 : 
-    # search_time : 7/6 02:00 --> 7/5 26:00
-    # 운영시간 : 7/5 12:00 ~ 03:00(27:00), 7/6 12:00 ~ 03:00(27:00)
+        # search_time : 7/6 02:00 --> 7/5 26:00
+        # 운영시간 : 7/5 12:00 ~ 03:00(27:00), 7/6 12:00 ~ 03:00(27:00)
     date2 = datetime.datetime.strftime(datetime.datetime.strptime(''.join(search_date), '%Y%m%d') + datetime.timedelta(days=-1), '%Y%m%d')
     search_date2 = [date2[:4], date2[4:6], date2[6:]]
     search_time2 = f"{int(search_time.split(':')[0])+24}:{search_time.split(':')[1]}"
@@ -193,22 +216,9 @@ def checked_cafe_df(dataframe, save_name, search_date, search_time):        ####
     dataframe['운영확인2'] = result2
     
     new_df = dataframe.loc[dataframe['운영확인'], ['상호명', 'dist', '도로명주소', 'url', '운영시간']] #, '운영확인1', '운영확인2', '운영확인']]
-    # date = ''.join(search_date)
-    # time = ''.join(search_time.split(':'))
-                                          
-    # filename = f'카페리스트검색결과_{date}_{time}.csv' # 밖으로 뺌
 
-    pd.DataFrame(new_df).to_csv(save_name, index=False, encoding='utf-8-sig') ##### 수정 #####
+    pd.DataFrame(new_df).to_csv(save_name, index=False, encoding='utf-8-sig')
     
     # 확인을 위한 return추가
     return new_df
 
-# # ## 입력할 값
-# search_date = ['2024','07','06']
-# search_time = '01:00'
-
-# holiday_list = get_holiday_ls(search_date[0])
-
-# # # csv 불러와서 편집
-# df = pd.read_csv('drop_nulls.csv', converters={"운영시간":literal_eval, "운영시간":literal_eval})
-# checked_cafe_df(df, search_date, search_time)

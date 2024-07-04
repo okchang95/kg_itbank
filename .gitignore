@@ -1,15 +1,14 @@
 # Specific files
 # index.html
-data/original_data.csv
-test.py
 
 # Test directories
 test/
-# public/
 data/
 py/
 
+# config
 config.json
+
 
 ###########################
 
