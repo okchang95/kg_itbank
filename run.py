@@ -43,6 +43,8 @@ if __name__ =="__main__":
 
     # INPUTS: 들어올것으로 예상
     filename = 'test'
+    result_filename = 'result'
+    dong = '종로1.2.3.4가동'
     search_lat = '37.571006515132865' 
     search_lng = '126.99251768504305' 
     search_radius = '0.5' # km
@@ -99,7 +101,8 @@ if __name__ =="__main__":
 
         year, mon, day = search_date
         time_ = ''.join(search_time.split(':'))
-        result_filename = f'result_{year + mon + day}_{time_}.csv'
+        result_filename = f'{result_filename}_{year + mon + day}_{time_}.csv'
+
 
         starttime = time.time()
         subprocess.run(['python', 'get_time.py', filename, year, mon, day, search_time, result_filename])

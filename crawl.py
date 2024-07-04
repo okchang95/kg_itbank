@@ -17,7 +17,7 @@ filename = sys.argv[1]
 ########################################################################
 
 # 데이터 저장 경로
-data_dir = 'data'
+data_dir = 'data/'
 data_path = os.path.join(data_dir, f'{filename}.csv') # 정리만 된 data: cafe_jongro.csv
 
 ## 1) url 컬럼 추가, 저장
