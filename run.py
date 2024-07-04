@@ -1,48 +1,28 @@
-import sort_distance, get_time
-import subprocess
-# import Element
+from pyscript import display, document
 
 if __name__ =="__main__":
 
-    # def function(): 
-    #     lat_value = Element("latValue")
-    #     lng_value = Element("lngValue")
-    #     radius_value = Element("radiusValue")
-    #     date_value = Element("dateValue")
-    #     time_value = Element("timeValue")
+    def function(evt):  
+        lat_value = document.querySelector("#latValue")
+        lng_value = document.querySelector("#lngValue")
+        radius_value = document.querySelector("#radiusValue")
+        date_value = document.querySelector("#dateValue")
+        time_value = document.querySelector("#timeValue")
+        result= document.querySelector("#result")
+        # 입력값 확인
+        # result.innerText = f'{lat_value.value, lng_value.value, radius_value.value, date_value.value.split('-'), time_value.value}'
         
-    #     result= Element("result")
-    #     result.element.innerText = f'{lat_value, lng_value, radius_value, date_value, time_value}'
-    
-    # # INPUTS - sort_distance.py
-    latitude = 37.571006515132865
-    longitude = 126.99251768504305
-    radius = 0.5 # km
+        ## 입력값
+        search_lat = lat_value.value
+        search_lng = lng_value.value
+        search_radius = radius_value.value
+        search_date = date_value.value
+        search_time = time_value.value
 
-    # # INPUTS - get_time.py
-    # search_date = ['2024','07','06'] # 원하는 날짜
-    # search_date = '2024','07','06'
-    year = '2024'
-    mon = '07'
-    day = '06'
-    search_time = '01:00' # 궁금한 시간
-
-    # # PATHS
-    # data_path = '/Users/okchang/mainbiz/project/p1_final/data'
-    # save_filename = 'cafe_jongro'
-    # result_path = '/Users/okchang/mainbiz/project/p1_final/result'
-    
-    date = year + mon + day
-    time = ''.join(search_time.split(':'))
-    result_filename = f'카페리스트검색결과_{date}_{time}.csv'
-
-
-    # subprocess.run(['python', 'data_load.py'])
-    # subprocess.run(['python', 'crawl.py'])
-    subprocess.run(['python', 'sort_distance.py', str(latitude), str(longitude), str(radius)])
-    subprocess.run(['python', 'get_time.py', year, mon, day, search_time])
-                    
-
-
-
-    pass
+        ## 필터링 진행 함수 
+        if float(search_radius) > 10:
+            result.innerText = "반경을 10 이하로 입력해주세요."
+        else:
+            # 필터링
+            result.innerText = "=========검색결과==========="
+            pass
