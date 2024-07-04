@@ -1,17 +1,13 @@
+# Specific files
+index.html
+data/original_data.csv
+
 # Test directories
 test/
 public/
-
-# Specific files
-index.html
-
-# Data files
 data/
-data/original_data.csv
-
 
 config.json
-
 
 ###########################
 
