@@ -9,6 +9,8 @@ import re
 import os
 import sys
 
+import time
+
 week = ['월','화','수','목','금','토','일']
 week_obj = {'월': 0, '화': 1, '수': 2, '목': 3, '금': 4, '토': 5, '일': 6}
 basic_sche_ls = [False, False, False, False, False, False, False]
@@ -163,7 +165,14 @@ def cafe_go(op_info_list, search_date, search_time):
 
 # 데이터에서 이용가능한 카페리스트 반환하는 함수
 # dataframe : 카페csv파일 불러온 것 -> cafe_jongro_crawled.csv
-def checked_cafe_df(dataframe, result_path, search_date, search_time):        ##### 추가 ##### + result_path
+def checked_cafe_df(dataframe, save_name, search_date, search_time):        ##### 추가 ##### + result_path
+    '''
+    args
+        dataframe: 거리정렬까지 완료된 dataframe
+        save_path: 'result/result.csv'
+        search_date: ['year', 'month', 'day']
+        search_time: 'hh:mm'
+    '''
     result = []
     result1 = []
     result2 = []
@@ -187,14 +196,12 @@ def checked_cafe_df(dataframe, result_path, search_date, search_time):        ##
     dataframe['운영확인2'] = result2
     
     new_df = dataframe.loc[dataframe['운영확인'], ['상호명', 'dist', '도로명주소', 'url', '운영시간']] #, '운영확인1', '운영확인2', '운영확인']]
-    date = ''.join(search_date)
-    time = ''.join(search_time.split(':'))
-    
-    # 저장경로 추가                                                              ##### 추가 #####
-    filename = f'카페리스트검색결과_{date}_{time}.csv'
-    save_path = os.path.join(result_path, filename)
+    # date = ''.join(search_date)
+    # time = ''.join(search_time.split(':'))
+                                          
+    # filename = f'카페리스트검색결과_{date}_{time}.csv' # 밖으로 뺌
 
-    pd.DataFrame(new_df).to_csv(save_path, index=False, encoding='utf-8-sig') ##### 수정 #####
+    pd.DataFrame(new_df).to_csv(save_name, index=False, encoding='utf-8-sig') ##### 수정 #####
     
     # 확인을 위한 return추가
     return new_df
@@ -203,9 +210,7 @@ def checked_cafe_df(dataframe, result_path, search_date, search_time):        ##
 # search_date = ['2024','07','06']
 # search_time = '01:00'
 
-
 # holiday_list = get_holiday_ls(search_date[0])
-
 
 # # # csv 불러와서 편집
 # df = pd.read_csv('drop_nulls.csv', converters={"운영시간":literal_eval, "운영시간":literal_eval})

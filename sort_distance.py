@@ -9,16 +9,15 @@ from py import distance
 import sys
 
 ## INPUTS (sample: kg아이티뱅크) =========================================
-filename = 'cafe_jongro'
+# filename = 'cafe_jongro'
+# latitude = 37.571006515132865
+# longitude = 126.99251768504305
+# radius = 0.5 # km
 
-latitude = 37.571006515132865
-longitude = 126.99251768504305
-radius = 0.5 # km
-
-# filename = sys.argv[1]
-# latitude = float(sys.argv[2])
-# longitude = float(sys.argv[3])
-# radius = float(sys.argv[4])
+filename = sys.argv[1]
+latitude = float(sys.argv[2])
+longitude = float(sys.argv[3])
+radius = float(sys.argv[4])
 ## =====================================================================
 
 data_dir = 'data'

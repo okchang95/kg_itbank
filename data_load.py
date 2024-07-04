@@ -10,15 +10,15 @@ import pandas as pd
 
 
 ## INPUTS ##############################################################
-filename = 'cafe_jongro'
-dong = '종로1.2.3.4가동' # 행정동명 (필요하면 법정동명도 포함시켜서 필터링)
-
+# filename = 'cafe_jongro'
 filename = sys.argv[1]
+
+dong = '종로1.2.3.4가동' # 행정동명 (필요하면 법정동명도 포함시켜서 필터링)
 # dong = sys.argv[2] # 행정동명 (필요하면 법정동명도 포함시켜서 필터링)
 ########################################################################
 
 original_filename = 'original_data.csv'
-data_dir = 'data' # 데이터가 저장된 경로
+data_dir = 'data/' # 데이터가 저장된 경로
 original_data_path = os.path.join(data_dir, original_filename)
 
 df = pd.read_csv(original_data_path)
