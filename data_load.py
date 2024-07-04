@@ -7,11 +7,13 @@
 import os
 import pandas as pd
 
-## INPUTS
-data_dir = '/Users/okchang/mainbiz/project/p1_final/data' # 데이터가 저장된 경로
+## INPUTS ##############################################################
+data_dir = 'data' # 데이터가 저장된 경로
 original_filename = 'original_data.csv'
 original_data_path = os.path.join(data_dir, original_filename)
 dong = '종로1.2.3.4가동' # 행정동명 (필요하면 법정동명도 포함시켜서 필터링)
+save_filename = 'cafe_jongro.csv'
+########################################################################
 
 df = pd.read_csv(original_data_path)
 
@@ -37,7 +39,6 @@ reidx_df = dong_df.reset_index(drop=True, inplace=False)
 print('5) 인덱스 초기화')
 
 # 저장
-save_filename = 'cafe_jongro.csv'
 reidx_df.to_csv(os.path.join(data_dir, save_filename), index=False, encoding='utf-8-sig')
 
 print('6) 저장 완료 =================================================')

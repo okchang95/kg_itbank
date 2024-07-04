@@ -14,7 +14,7 @@ import os
 # data_path = 'data/cafe_jongro.csv' # 상대경로
 
 # 데이터 저장 경로
-data_dir = '/Users/okchang/mainbiz/project/p1_final/data'
+data_dir = 'data'
 filename = 'cafe_jongro'
 
 data_path = os.path.join(data_dir, f'{filename}.csv') # 정리만 된 data

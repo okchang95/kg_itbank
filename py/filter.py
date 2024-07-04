@@ -41,11 +41,6 @@ def get_holiday_ls(search_year):
 # return : True 또는 False
 def is_holiday(holiday_list, search_date):
     if len(np.where(holiday_list == (''.join(search_date)))[0]) == 1:
-        '''
-        # 경고메세지나옴
-        /Users/okchang/mainbiz/project/p1_final/py/filter.py:38: FutureWarning: elementwise comparison failed; returning scalar instead, but in the future will perform elementwise comparison
-        if len(np.where(holiday_list == (''.join(search_date)))[0]) == 1:
-        '''
         return True
     else: 
         return False    
