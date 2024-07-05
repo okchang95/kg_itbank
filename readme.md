@@ -80,4 +80,4 @@
 
 6. **kakao map api를 통해 사용자에게 정보 입력받아 스크립트에 전달** (`public/`)
 
-<img width="600" alt="image" src="images/userinput.png">
+<img width="700" alt="image" src="images/userinput.png">
