@@ -22,7 +22,7 @@
     - 화면 구현: `Kakao Map API`, `html`, `py-script`
 
 - **디렉토리**
-    <br><br><img width="400" alt="image" src="data/directory.png">
+    <br><br><img width="400" alt="image" src="images/directory.png">
 
     - `run.py`
         1. `cleaning_script.py`: 원본 데이터 정리, 정리된 csv파일 저장
@@ -36,7 +36,7 @@
     - 출처: https://www.data.go.kr/data/15083033/fileData.do
     - 소상공인시장진흥공단_상가(상권)정보
     
-    ![metadata](data/metadata.png)
+    ![metadata](images/metadata.png)
     
     - 업데이트 주기: 분기
     - 마지막 수정일: 2024-04-24
@@ -79,3 +79,5 @@
         - out_csv columns : 상호명, 거리, 링크, 주소, 운영시간
 
 6. **kakao map api를 통해 사용자에게 정보 입력받아 스크립트에 전달** (`public/`)
+
+![userinput](images/userinput.png)
