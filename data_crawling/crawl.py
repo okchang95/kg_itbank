@@ -115,7 +115,6 @@ def crawl_time(url):
 
     # 운영시간 상세 버튼 없는 경우
     except:
-        # print('더보기 없음')
         res = driver.page_source 
         driver.close()
 

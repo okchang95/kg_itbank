@@ -31,7 +31,6 @@ api_key = config['data_key']
     # 2) checked_cafe_df(dataframe, save_name, search_date, search_time): 이용가능한 카페들 출력
 
 
-
 ## 1. 공휴일 가져오는 데이터포털 api -----------------------------------------------------------------------
 
 # 1-1) 공휴일 리스트 불러오는 함수
@@ -171,12 +170,12 @@ def check_cafe_sche(operating_hours, search_time):
 # search_date, search_time
 # return : True 또는 False
 def cafe_go(op_info_list, search_date, search_time):
-    if is_holiday(get_holiday_ls(search_date[0]), search_date):                                          ##### 수정 ##### holiday_list -> get_holiday_ls(search_date[0])
+    if is_holiday(get_holiday_ls(search_date[0]), search_date):                                          
         if '공휴일' in op_info_list:
             return check_cafe_sche(get_operating_time_dict(op_info_list)['공휴일'][0], search_time)
     else: 
         cafe_schedule = get_sche_ls(get_operating_time_dict(op_info_list)['영업일'])
-        day = datetime.date(int(search_date[0]), int(search_date[1]), int(search_date[2])).weekday()     ##### 수정 ##### date -> datetime.date
+        day = datetime.date(int(search_date[0]), int(search_date[1]), int(search_date[2])).weekday()     
         if cafe_schedule[day]:
             return check_cafe_sche(cafe_schedule[day], search_time)
         else: return False
@@ -194,8 +193,8 @@ def checked_cafe_df(dataframe, save_name, search_date, search_time):
         search_time: 'hh:mm'
     '''
     result = []
-    result1 = []
-    result2 = []
+    # result1 = []
+    # result2 = []
 
     ## search_time이 전날의 closetime 전일 수 있으므로 확인하기 위한 코드 
     # 예시 : 
@@ -208,17 +207,11 @@ def checked_cafe_df(dataframe, save_name, search_date, search_time):
     for op_info_list in dataframe['운영시간'].values.tolist():
         value = cafe_go(op_info_list, search_date, search_time) or cafe_go(op_info_list, search_date2, search_time2)
         result.append(value)
-        result1.append(cafe_go(op_info_list, search_date, search_time))
-        result2.append(cafe_go(op_info_list, search_date2, search_time2))
-   
-    dataframe['운영확인'] = result
-    dataframe['운영확인1'] = result1
-    dataframe['운영확인2'] = result2
-    
-    new_df = dataframe.loc[dataframe['운영확인'], ['상호명', 'dist', '도로명주소', 'url', '운영시간']] #, '운영확인1', '운영확인2', '운영확인']]
 
+    dataframe['운영확인'] = result
+    
+    new_df = dataframe.loc[dataframe['운영확인'], ['상호명', 'dist', '도로명주소', 'url', '운영시간']] 
     pd.DataFrame(new_df).to_csv(save_name, index=False, encoding='utf-8-sig')
     
-    # 확인을 위한 return추가
     return new_df
 

@@ -21,6 +21,8 @@
     - 크롤링: `Selenium`
     - 화면 구현: `Kakao Map API`, `html`, `py-script`
 
+- **디렉토리**
+![](data/directory.png)
 
 ## 과정
 

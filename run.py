@@ -17,7 +17,7 @@ if __name__ =="__main__":
     search_lng = '126.99251768504305' 
     search_radius = '0.5' # km
     search_date = ['2024','07','06'] 
-    search_time = '01:00' # 궁금한 시간
+    search_time = '08:00' # 궁금한 시간
 
     # Define file paths
     csv_file = f'{filename}.csv'
