@@ -194,7 +194,7 @@ def get_urls(data_path, getcsv=False): #, save_path):
     '''
     df = pd.read_csv(data_path)
     df_length = df.index[-1]+1
-
+    # test_url 있으면 건너뛰게
     url_ls = []
     for i in range(df_length):
     # for i in range(5):
@@ -237,8 +237,12 @@ def get_time_n_dropna(df, save_path):
     # print(time_ls)
 
     # 운영시간 없는 경우 데이터 제거
+    for i, e in enumerate(time_ls):
+        if e == []:
+            time_ls[i] = ''
     df['운영시간'] = time_ls
     df.dropna(subset=['운영시간'], inplace=True)
+
     df.reset_index(drop=True, inplace=True)
 
     # save csv file
