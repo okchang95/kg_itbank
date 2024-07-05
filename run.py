@@ -71,78 +71,49 @@ if __name__ =="__main__":
         else:
             print("데이터를 로드할 수 없습니다 ㅠ ...(1)")
 
-    # # 2) 데이터 크롤링: f'{filename}_crawled.csv'가 없으면 만들어
-    # if file_exists(csv_file) and not file_exists(crawled_file):
-    #     print('2) crawler_script.py 실행')
-    #     print(f'{csv_file}.csv을 불러옵니다..')
-    #     starttime = time.time()
-    #     subprocess.run(['python', 'data_crawling/crawler_script.py', filename])
-    #     endtime = time.time()
-    #     print(f'2) crawling_script.py 완료!, {endtime - starttime} seconds {"="*20}\n')
-    # else:
-    #     print("데이터를 로드할 수 없습니다 ㅠ ...(2)")
+    # 2) 데이터 크롤링: f'{filename}_crawled.csv'가 없으면 만들어
+    if file_exists(csv_file) and not file_exists(crawled_file):
+        print('2) crawler_script.py 실행')
+        print(f'{csv_file}.csv을 불러옵니다..')
+        starttime = time.time()
+        subprocess.run(['python', 'data_crawling/crawler_script.py', filename])
+        endtime = time.time()
+        print(f'2) crawling_script.py 완료!, {endtime - starttime} seconds {"="*20}\n')
+    else:
+        print("데이터를 로드할 수 없습니다 ㅠ ...(2)")
 
-    # # 3) 거리순 정렬: f'{filename}_sorted.csv'가 없으면 만들어
-    # if file_exists(crawled_file) and not file_exists(sorted_file):
-    #     print('3) sorting_script.py 실행')
-    #     print(f'{crawled_file}을 불러옵니다..')
-    #     starttime = time.time()
-    #     subprocess.run(['python', 'data_cleaning/sorting_script.py', filename, search_lat, search_lng, search_radius])
-    #     endtime = time.time()
-    #     print(f'3) sorting_script.py 완료, {endtime - starttime} seconds {"="*20}\n')
-    # else:
-    #     print("데이터를 로드할 수 없습니다 ㅠ ...(3)")
+    # 3) 거리순 정렬: f'{filename}_sorted.csv'가 없으면 만들어
+    if file_exists(crawled_file) and not file_exists(sorted_file):
+        print('3) sorting_script.py 실행')
+        print(f'{crawled_file}을 불러옵니다..')
+        starttime = time.time()
+        subprocess.run(['python', 'data_cleaning/sorting_script.py', filename, search_lat, search_lng, search_radius])
+        endtime = time.time()
+        print(f'3) sorting_script.py 완료, {endtime - starttime} seconds {"="*20}\n')
+    else:
+        print("데이터를 로드할 수 없습니다 ㅠ ...(3)")
     
-    # # 4) 운영시간 필터링: f'{filename}_sorted.csv'가 있으면 실행
-    # if file_exists(sorted_file):
-    #     print('4) filter_script.py 실행')
-    #     print(f'{sorted_file}을 불러옵니다..')
+    # 4) 운영시간 필터링: f'{filename}_sorted.csv'가 있으면 실행
+    if file_exists(sorted_file):
+        print('4) filter_script.py 실행')
+        print(f'{sorted_file}을 불러옵니다..')
 
-    #     year, mon, day = search_date
-    #     time_ = ''.join(search_time.split(':'))
-    #     result_filename = f'{result_filename}_{year + mon + day}_{time_}.csv'
+        year, mon, day = search_date
+        time_ = ''.join(search_time.split(':'))
+        result_filename = f'{result_filename}_{year + mon + day}_{time_}.csv'
 
-    #     starttime = time.time()
-    #     subprocess.run(['python', 'data_filtering/filter_script.py', filename, year, mon, day, search_time, result_filename])
-    #     endtime = time.time()
-    #     print(f'4) filtering_script.py 완료!, {endtime - starttime} seconds {"="*20}\n')
+        starttime = time.time()
+        subprocess.run(['python', 'data_filtering/filter_script.py', filename, year, mon, day, search_time, result_filename])
+        endtime = time.time()
+        print(f'4) filtering_script.py 완료!, {endtime - starttime} seconds {"="*20}\n')
 
-    #     # 확인
-    #     result_path = os.path.join('result/', result_filename)
-    #     df = pd.read_csv(result_path)
-    #     print(df)
+        # 확인
+        result_path = os.path.join('result/', result_filename)
+        df = pd.read_csv(result_path)
+        print(df)
 
-    # else:
-    #     print("4) 데이터를 로드할 수 없습니다 ㅠ ...(4)")
-    #     # result.innerText = "데이터를 로드할 수 없습니다."
-    # # 오래걸리는 이유: "get_holiday_ls"가 405번 실행됨 
+    else:
+        print("4) 데이터를 로드할 수 없습니다 ㅠ ...(4)")
 
 
 
-
-    # data_lilst = os.listdir('data/')
-
-    # if not f'{filename}.csv' in data_lilst:
-    #     subprocess.run(['python', 'data_load.py', 
-    #                     str(filename)])
-        
-    # elif not f'{filename}_crawled.csv' in data_lilst:
-    #     subprocess.run(['python', 'crawl.py',
-    #                     str(filename)])
-        
-    # elif not f'{filename}_sorted.csv' in data_lilst:
-    #     subprocess.run(['python', 'sort_distance.py', 
-    #                     str(filename), 
-    #                     str(search_lat), 
-    #                     str(search_lng), 
-    #                     str(search_radius)])
-        
-    # if f'{filename}_sorted.csv' in data_lilst:
-    #     subprocess.run(['python', 'get_time.py', 
-    #                     str(filename), 
-    #                     str(year), 
-    #                     str(mon), 
-    #                     str(day), 
-    #                     str(search_time),
-    #                     str(result_filename)])
-            
