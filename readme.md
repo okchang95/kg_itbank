@@ -24,11 +24,11 @@
 - **디렉토리**
     <br><img width="400" alt="image" src="data/directory.png">
 
-- `run.py`
-    1. `cleaning_script.py`: 원본 데이터 정리, 정리된 csv파일 저장
-    2. `crawler_script.py`: 크롤링, 크롤링정보 추가된 csv파일 저장 (운영정보 텍스트 정리 안됨)
-    3. `sorting_script.py`: 위경도 기준 전달된 반경 내의 매장을 거리순으로 정렬후 csv파일 저장
-    4. `filter_script.py`: 운영정보 텍스트를 정제, 원하는 내용만 뽑아내 준 후, 입력된 시간에 운영하는 매장들만 골라서 반환
+    - `run.py`
+        1. `cleaning_script.py`: 원본 데이터 정리, 정리된 csv파일 저장
+        2. `crawler_script.py`: 크롤링, 크롤링정보 추가된 csv파일 저장 (운영정보 텍스트 정리 안됨)
+        3. `sorting_script.py`: 위경도 기준 전달된 반경 내의 매장을 거리순으로 정렬후 csv파일 저장
+        4. `filter_script.py`: 운영정보 텍스트를 정제, 원하는 내용만 뽑아내 준 후, 입력된 시간에 운영하는 매장들만 골라서 반환
 
 ## 과정
 
