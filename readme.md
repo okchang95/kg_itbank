@@ -81,3 +81,10 @@
 6. **kakao map api를 통해 사용자에게 정보 입력받아 스크립트에 전달** (`public/`)
 
     <img width="700" alt="image" src="images/userinput.png">
+
+## 추후 계획
+
+- 범위 확장
+- 업종 확장
+- 사용자 인풋을 위한 서버 구축
+- 카카오맵 api 인풋 페이지 구현 고도화
