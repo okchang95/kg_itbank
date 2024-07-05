@@ -22,7 +22,7 @@
     - 화면 구현: `Kakao Map API`, `html`, `py-script`
 
 - **디렉토리**
-    <img width="400" alt="image" src="data/directory.png">
+    <br><img width="400" alt="image" src="data/directory.png">
 
 - `run.py`
     1. `cleaning_script.py`: 원본 데이터 정리, 정리된 csv파일 저장
